@@ -4,45 +4,35 @@ import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_order")
-public class Order {
+@Table(name = "tb_payment")
+public class Payment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Autowired
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant moment;
-	@Autowired
-	private OrderStatus status;
 	
-	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private User client;
+	@OneToOne
+	@MapsId
+	private Order order;
 	
-	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
-	private Payment payment;
-	
-	public Order() {
+	public Payment() {
 	}
 
-	public Order(Long id, Instant moment, OrderStatus status, User client, Payment payment) {
+	public Payment(Long id, Instant moment) {
 		this.id = id;
 		this.moment = moment;
-		this.status = status;
-		this.client = client;
-		this.payment = payment;
 	}
 
 	public Long getId() {
@@ -60,21 +50,6 @@ public class Order {
 	public void setMoment(Instant moment) {
 		this.moment = moment;
 	}
-
-	public OrderStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(OrderStatus status) {
-		this.status = status;
-	}
-
-	public User getClient() {
-		return client;
-	}
-
-	public void setClient(User client) {
-		this.client = client;
-	}
-
+	
+	
 }
