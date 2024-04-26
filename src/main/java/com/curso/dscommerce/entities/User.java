@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class User {
 	@Autowired
 	private String name;
 	@Autowired
+	@Column(unique = true)
 	private String email;
 	@Autowired
 	private String phone;
@@ -37,13 +39,15 @@ public class User {
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String phone, LocalDate birthDate, String password) {
+	public User(Long id, String name, String email, String phone, LocalDate birthDate, String password,
+			List<Order> orders) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
 		this.birthDate = birthDate;
 		this.password = password;
+		this.orders = orders;
 	}
 
 	public Long getId() {

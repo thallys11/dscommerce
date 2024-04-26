@@ -16,6 +16,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_payment")
 public class Payment {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -30,9 +31,10 @@ public class Payment {
 	public Payment() {
 	}
 
-	public Payment(Long id, Instant moment) {
+	public Payment(Long id, Instant moment, Order order) {
 		this.id = id;
 		this.moment = moment;
+		this.order = order;
 	}
 
 	public Long getId() {
