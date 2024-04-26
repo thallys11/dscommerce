@@ -1,6 +1,7 @@
 package com.curso.dscommerce.entities;
 
 import java.time.Instant;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -52,6 +53,24 @@ public class Payment {
 	public void setMoment(Instant moment) {
 		this.moment = moment;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Payment other = (Payment) obj;
+		return Objects.equals(id, other.id);
+	}
+	
 	
 	
 }
