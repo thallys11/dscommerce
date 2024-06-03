@@ -25,14 +25,10 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Autowired
 	private String name;
-	@Autowired
 	@Column(columnDefinition = "TEXT")
 	private String description;
-	@Autowired
 	private Double price;
-	@Autowired
 	private String imgUrl;
 	
 	@ManyToMany
@@ -47,13 +43,12 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(Long id, String name, String description, Double price, String imgUrl, Set<Category> categories) {
+	public Product(Long id, String name, String description, Double price, String imgUrl) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.imgUrl = imgUrl;
-		this.categories = categories;
 	}
 	
 	public Long getId() {
