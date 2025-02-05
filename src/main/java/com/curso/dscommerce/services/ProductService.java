@@ -32,8 +32,8 @@ public class ProductService {
 	// import org.springframework.data.domain.Page;
 	// import org.springframework.data.domain.Pageable;
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAll(Pageable pageable) {
-		Page<Product> result = repository.findAll(pageable);
+	public Page<ProductDTO> findAll(String name, Pageable pageable) {
+		Page<Product> result = repository.searchByName(name, pageable);
 		return result.map(x -> new ProductDTO(x));
 	}
 	
