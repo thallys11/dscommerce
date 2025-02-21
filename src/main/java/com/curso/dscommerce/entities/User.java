@@ -31,16 +31,11 @@ public class User implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Autowired
 	private String name;
-	@Autowired
 	@Column(unique = true)
 	private String email;
-	@Autowired
 	private String phone;
-	@Autowired
 	private LocalDate birthDate;
-	@Autowired
 	private String password;
 	
 	@OneToMany(mappedBy = "client")

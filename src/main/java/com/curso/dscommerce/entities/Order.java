@@ -27,10 +27,10 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Autowired
+
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant moment;
-	@Autowired
+	
 	private OrderStatus status;
 	
 	@ManyToOne
