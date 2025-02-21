@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.curso.dscommerce.dto.CategoryDTO;
 import com.curso.dscommerce.dto.ProductDTO;
+import com.curso.dscommerce.dto.ProductMinDTO;
+import com.curso.dscommerce.entities.Category;
 import com.curso.dscommerce.entities.Product;
 import com.curso.dscommerce.repositories.ProductRepository;
 import com.curso.dscommerce.services.exceptions.DatabaseException;
@@ -32,9 +35,9 @@ public class ProductService {
 	// import org.springframework.data.domain.Page;
 	// import org.springframework.data.domain.Pageable;
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAll(String name, Pageable pageable) {
+	public Page<ProductMinDTO> findAll(String name, Pageable pageable) {
 		Page<Product> result = repository.searchByName(name, pageable);
-		return result.map(x -> new ProductDTO(x));
+		return result.map(x -> new ProductMinDTO(x));
 	}
 	
 	@Transactional
@@ -71,11 +74,18 @@ public class ProductService {
 		}
 	}
 
-	private void copyDtoToProduct(ProductDTO dto, Product product) {
-		product.setName(dto.getName());
-		product.setDescription(dto.getDescription());
-		product.setPrice(dto.getPrice());
-		product.setImgUrl(dto.getImgUrl());
+	private void copyDtoToProduct(ProductDTO dto, Product entity) {
+		entity.setName(dto.getName());
+		entity.setDescription(dto.getDescription());
+		entity.setPrice(dto.getPrice());
+		entity.setImgUrl(dto.getImgUrl());
+		
+		entity.getCategories().clear();
+		for (CategoryDTO catDto : dto.getCategories()) {
+			Category cat = new Category();
+			cat.setId(catDto.getId());
+			entity.getCategories().add(cat);
+		}
 		
 	}
 
